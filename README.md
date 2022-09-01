@@ -28,12 +28,20 @@ dl_dir = directory where files will be downloaded to
 ```
 
 ## Usage
-```bash
+```
 python main.py [-h] [-d] [-n] [-q]
 
 options:
   -h, --help       show this help message and exit
+  -c, --cronjob    use this option if you run this script via cron
   -d, --dry-run    only show what would be downloaded, without actually doing anything
   -n, --no-update  don't update the date in config.ini to the current date after the download finished
   -q, --quiet      don't output information to STDOUT
+```
+
+## Run as Cronjob
+Add a new entry in crontab with `crontab -e` like so:
+
+```
+ 30 20 * * 5 /path/to/project/PSB-Downloader/venv/bin/python /path/to/project/PSB-Downloader/main.py --cronjob >> /path/to/project/PSB-Downloader/downloader.log 2>&1
 ```

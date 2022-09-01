@@ -15,6 +15,7 @@ config = configparser.ConfigParser()
 configfile_name = 'config.ini'
 
 parser = argparse.ArgumentParser(description='Download a list of episodes from the media library of the German PSB')
+parser.add_argument('-c', '--cronjob', action='store_true', help='use this option if you run this script via cron')
 parser.add_argument('-d', '--dry-run', action='store_true', help='only show what would be downloaded, '
                                                                  'without actually doing anything')
 parser.add_argument('-n', '--no-update', action='store_true', help='don\'t update the date in config.ini to the '
@@ -59,7 +60,8 @@ def read_config():
 
 
 if __name__ == '__main__':
-    # os.chdir(os.path.dirname(sys.argv[0]))  # uncomment if using in cronjob
+    if args.cronjob:
+        os.chdir(os.path.dirname(sys.argv[0]))
     read_config()
     conf = config['DEFAULT']
     payload = {'query': conf['title']}
